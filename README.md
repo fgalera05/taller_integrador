@@ -6,7 +6,8 @@ Pipeline de punta a punta: unifica 16 años (2001-2016) de publicaciones de depa
 
 Incluye análisis exploratorio, validación out-of-time, auditoría de data leakage, visualizaciones analíticas, un notebook interactivo de demostración de bases de datos para la defensa oral y un dashboard interactivo en Streamlit.
 
-- **Autor/es:** Luciano Asís, Gustavo Barrajón, Fernando Galera
+- **Autores:** Luciano Asís, Gustavo Barrajón, Fernando Galera
+- **Grupo:** Los Naive Mates
 
 ---
 
@@ -106,7 +107,7 @@ taller_integrador/
 
 1. **Clonar el repositorio:**
    ```bash
-   git clone <URL-DEL-REPOSITORIO>
+   git clone https://github.com/fgalera05/taller_integrador.git
    cd taller_integrador
    ```
 
@@ -239,7 +240,7 @@ En la validación cruzada de 5 folds (muestra de 40.000 filas), Random Forest y 
 - **Cálculo homogéneo de `PRECIO_M2`:** En el dataset original de 2016, la variable publicada `U_S_M2` corresponde a superficie cubierta en lugar de total. Se recalculó uniformemente la métrica sobre la superficie total para asegurar comparabilidad a lo largo de los 16 años.
 - **Prevención de Data Leakage:** Las variables de precio directo (`DOLARES`, `U_S_M2`, `PRECIO_M2`) y variables no generalizables (`AÑO`, `CALLE`, `NUMERO`) fueron excluidas del vector de entrenamiento. La prueba controlada de leakage muestra cuánto subiría la exactitud al incluirlas: de 0,647 (modelo real) a 0,689 con `DOLARES` y a 0,855 con `PRECIO_M2` + `AÑO` (Random Forest de 100 árboles sobre una muestra de 40.000 filas).
 - **Tratamiento de valores faltantes:** Variables como `BAÑOS`, `ANTIGUEDAD` o amenidades no estaban presentes en todos los años de publicación. Se imputan dentro del `Pipeline` con indicadores de ausencia (`add_indicator=True`), de modo que los modelos puedan usar la no-respuesta como señal.
-- **Sobreajuste:** El Random Forest sobreajusta (accuracy de 0,80 en train contra 0,68 en test) pese a que la búsqueda explora `max_depth`, `min_samples_leaf` y `max_features`. XGBoost muestra una brecha mucho menor (0,686 contra 0,669). Queda documentado como limitación del modelo.
+- **Sobreajuste:** El Random Forest sobreajusta (accuracy de 0,80 en train contra 0,678 en test) pese a que la búsqueda explora `max_depth`, `min_samples_leaf` y `max_features`. XGBoost muestra una brecha mucho menor (0,686 contra 0,669). Queda documentado como limitación del modelo.
 
 ---
 
