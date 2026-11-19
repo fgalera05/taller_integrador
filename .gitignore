@@ -5,3 +5,5 @@ models/
 __pycache__/
 .env
 notebooks/ejecutados/*.ipynb
+reports/
+.gitignore
