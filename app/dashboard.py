@@ -191,14 +191,15 @@ with tab_datos:
             kw = dict(color="SEGMENTO", color_discrete_map=COLORS,
                     category_orders={"SEGMENTO": LABELS}, hover_data=["BARRIO", "M2", "PRECIO_M2"])
             titulo = "Ubicación de los avisos (muestra de hasta 5.000)"
+            centro = {"lat": float(geo["LAT"].median()), "lon": float(geo["LON"].median())}
             if sin_fondo:
                 fig = px.scatter(geo, x="LON", y="LAT", title=titulo, height=520, **kw)
                 fig.update_yaxes(scaleanchor="x", scaleratio=1)   # evita distorsión de relación de aspecto
             elif hasattr(px, "scatter_map"):
-                fig = px.scatter_map(geo, lat="LAT", lon="LON", zoom=10.5, height=520, title=titulo, **kw)
+                fig = px.scatter_map(geo, lat="LAT", lon="LON", center=centro, zoom=10.5, height=520, title=titulo, **kw)
                 fig.update_layout(map_style="open-street-map", margin=dict(l=0, r=0, t=40, b=0))
             else:
-                fig = px.scatter_mapbox(geo, lat="LAT", lon="LON", zoom=10.5, height=520, title=titulo, **kw)
+                fig = px.scatter_mapbox(geo, lat="LAT", lon="LON", center=centro, zoom=10.5, height=520, title=titulo, **kw)
                 fig.update_layout(mapbox_style="open-street-map", margin=dict(l=0, r=0, t=40, b=0))
             st.plotly_chart(fig, use_container_width=True)
         else:
